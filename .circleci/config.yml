@@ -11,9 +11,30 @@ jobs:
       - run:
           name: Deploying website.
           command: echo Deploying website.
-      - deploy:
-          name: Deploy to S3 if branch is Master.
+
+  deploy:
+
+    docker:
+      - image: cibuilds/aws
+
+    steps:
+      - attach_workspace:
+          at: ~/
+
+      - run: |
+        name: Deploy to S3 if branch is Master.
           command: |
-            if [ "${CIRCLE_BRANCH}" == "master" ]; then
               aws s3 sync ~/ s3://stepanvalchyshyn.com/ --delete
-            fi
+
+  workflows:
+  version: 2
+
+  build_deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
