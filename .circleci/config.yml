@@ -10,7 +10,7 @@ jobs:
     docker:
       - image: debian:stretch
 
-    working_directory: ~/website
+    working_directory: /home/circleci
     steps:
       - checkout
       - run:
