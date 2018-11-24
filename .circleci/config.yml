@@ -1,0 +1,19 @@
+version: 2
+
+working_directory: ~/
+
+jobs:
+  build:
+    docker:
+      - image: debian:stretch
+    steps:
+      - checkout
+      - run:
+          name: Deploying website.
+          command: echo Deploying website.
+      - deploy:
+          name: Deploy to S3 if branch is Master.
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              aws s3 sync ~/ s3://stepanvalchyshyn.com/ --delete
+            fi
