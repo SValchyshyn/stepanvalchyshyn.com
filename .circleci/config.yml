@@ -18,9 +18,9 @@ jobs:
           command: echo Deploying website.
 
       - persist_to_workspace:
-          root: ~/website
+          root: /home/circleci
           paths:
-            - src/website/out/*
+            - .
 
   deploy:
     <<: *defaults
@@ -30,15 +30,14 @@ jobs:
 
     steps:
       - attach_workspace:
-          at: ~/website
+          at: /home/circleci
 
       - run:
           name: deploy to AWS
           command: |
             pwd
-            cd src/website
             if [ "${CIRCLE_BRANCH}" = "master" ]; then
-               aws s3 sync out/ s3://stepanvalchyshyn.com/ --delete
+               aws s3 sync . s3://stepanvalchyshyn.com/ --delete
             else
                echo "Not master branch, dry run only"
             fi
