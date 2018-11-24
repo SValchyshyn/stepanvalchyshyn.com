@@ -18,9 +18,12 @@ jobs:
 
     steps:
       - attach_workspace:
-          at: ~/
+          at: ~/website
 
-      - run: |
+      - run:
+          name: Deploy to S3 if branch is Master.
+          command: |
+          cd src/website/
           if [ "${CIRCLE_BRANCH}" == "master" ]; then
-          aws s3 sync ~/ s3://stepanvalchyshyn.com/ --delete
+          aws s3 sync . s3://stepanvalchyshyn.com/ --delete
           fi
