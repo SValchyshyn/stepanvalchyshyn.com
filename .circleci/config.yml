@@ -13,6 +13,11 @@ jobs:
           name: Deploying website.
           command: echo Deploying website.
 
+      - persist_to_workspace:
+          root: ~/website
+          paths:
+            - src/website/out/*
+
   deploy:
   
     docker:
@@ -29,7 +34,7 @@ jobs:
             ls
             cd src/website
             if [ "${CIRCLE_BRANCH}" = "master" ]; then
-               aws s3 sync . s3://stepanvalchyshyn.com/ --delete
+               aws s3 sync out/ s3://stepanvalchyshyn.com/ --delete
             else
                echo "Not master branch, dry run only"
             fi
