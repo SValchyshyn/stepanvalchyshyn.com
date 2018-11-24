@@ -13,7 +13,6 @@ jobs:
           command: echo Deploying website.
 
   deploy:
-
     docker:
       - image: cibuilds/aws
 
@@ -21,9 +20,8 @@ jobs:
       - attach_workspace:
           at: ~/
 
-      - run:
-        name: Deploy to S3 if branch is Master.
-          command: aws s3 sync ~/ s3://stepanvalchyshyn.com/ --delete
+      - run: |
+          aws s3 sync ~/ s3://stepanvalchyshyn.com/ --delete
 
   workflows:
   version: 2
