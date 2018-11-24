@@ -19,8 +19,10 @@ jobs:
       - run:
           name: deploy to AWS
           command: |
+            pwd
+            cd src/website
             if [ "${CIRCLE_BRANCH}" = "master" ]; then
-               aws s3 sync src/website/ s3://stepanvalchyshyn.com/ --delete
+               aws s3 sync . s3://stepanvalchyshyn.com/ --delete
             else
                echo "Not master branch, dry run only"
             fi
