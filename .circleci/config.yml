@@ -1,11 +1,7 @@
 version: 2
 
-defaults: &defaults
-  working_directory: ~/website
-
 jobs:
   build:
-    <<: *defaults
 
     docker:
       - image: debian:stretch
@@ -23,7 +19,6 @@ jobs:
             - .
 
   deploy:
-    <<: *defaults
   
     docker:
       - image: cibuilds/aws
