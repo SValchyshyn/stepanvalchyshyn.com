@@ -31,7 +31,7 @@ jobs:
           at: ~/home/website
 
       - aws-s3/sync:
-          from: .
+          from: ~/home/website
           to: 's3://stepanvalchyshyn.com/'
           overwrite: true
 
