@@ -16,10 +16,13 @@ jobs:
       - image: cibuilds/aws
 
     steps:
+    - attach_workspace:
+          at: ~/website
+
       - run:
           name: deploy to AWS
           command: |
-            pwd
+            ls
             cd src/website
             if [ "${CIRCLE_BRANCH}" = "master" ]; then
                aws s3 sync . s3://stepanvalchyshyn.com/ --delete
