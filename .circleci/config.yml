@@ -1,5 +1,8 @@
 version: 2
 
+defaults: &defaults
+  working_directory: ~/website
+
 jobs:
   build:
     docker:
@@ -22,6 +25,7 @@ jobs:
       - run:
           name: deploy to AWS
           command: |
+            pwd
             ls
             cd src/website
             if [ "${CIRCLE_BRANCH}" = "master" ]; then
