@@ -5,6 +5,8 @@ defaults: &defaults
 
 jobs:
   build:
+    <<: *defaults
+
     docker:
       - image: debian:stretch
 
@@ -21,6 +23,7 @@ jobs:
             - src/website/out/*
 
   deploy:
+    <<: *defaults
   
     docker:
       - image: cibuilds/aws
@@ -33,7 +36,6 @@ jobs:
           name: deploy to AWS
           command: |
             pwd
-            ls
             cd src/website
             if [ "${CIRCLE_BRANCH}" = "master" ]; then
                aws s3 sync out/ s3://stepanvalchyshyn.com/ --delete
