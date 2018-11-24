@@ -13,16 +13,17 @@ jobs:
           command: echo Deploying website.
 
   deploy:
+  
     docker:
       - image: cibuilds/aws
 
-      steps:
-        - run:
+    steps:
+      - run:
           name: deploy to AWS
           command: |
             if [ "${CIRCLE_BRANCH}" = "master" ]; then
-              aws s3 sync src/website/
-              s3://stepanvalchyshyn.com/ --delete
+               aws s3 sync src/website/
+               s3://stepanvalchyshyn.com/ --delete
             else
-              echo "Not master branch, dry run only"
-            fi
+               echo "Not master branch, dry run only"
+            fi 
