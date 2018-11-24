@@ -23,8 +23,7 @@ jobs:
 
       - run:
         name: Deploy to S3 if branch is Master.
-          command:
-              aws s3 sync ~/ s3://stepanvalchyshyn.com/ --delete
+          command: aws s3 sync ~/ s3://stepanvalchyshyn.com/ --delete
 
   workflows:
   version: 2
