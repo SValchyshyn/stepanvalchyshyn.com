@@ -4,7 +4,7 @@ jobs:
   build:
 
     docker:
-      - image: cibuilds/aws
+      - image: circleci/node:8
 
     working_directory: /home/circleci
     steps:
