@@ -24,7 +24,7 @@ jobs:
   deploy:
   
     docker:
-      - image: cibuilds/aws
+      - image: 'circleci/python:2.7'
 
     steps:
       - attach_workspace:
