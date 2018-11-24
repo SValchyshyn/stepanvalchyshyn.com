@@ -6,7 +6,7 @@ jobs:
     docker:
       - image: circleci/node:8
 
-    working_directory: ~/home/website
+    working_directory: ~/website
     steps:
       - checkout
       - run:
@@ -14,9 +14,9 @@ jobs:
           command: echo Deploying website.
 
       - persist_to_workspace:
-          root: ~/home/website
+          root: ~/website
           paths:
-            - .
+            - ~/home/circleci/src/website
 
   deploy:
   
@@ -25,14 +25,14 @@ jobs:
 
     steps:
       - attach_workspace:
-          at: ~/home/website
+          at: ~/website
 
       - run:
           name: Install awscli
           command: sudo pip install awscli
       - run:
           name: Deploy to S3
-          command: aws s3 sync ~/home/website s3://stepanvalchyshyn.com/ --delete
+          command: aws s3 sync ~/website s3://stepanvalchyshyn.com/ --delete
 
 workflows:
   version: 2
