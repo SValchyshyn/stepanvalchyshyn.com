@@ -1,4 +1,7 @@
-version: 2
+version: 2.1
+
+orbs:
+  aws-s3: circleci/aws-s3@volatile
 
 jobs:
   build:
@@ -27,15 +30,10 @@ jobs:
       - attach_workspace:
           at: ~/home/website
 
-      - run:
-          name: deploy to AWS
-          command: |
-            pwd
-            if [ "${CIRCLE_BRANCH}" = "master" ]; then
-               aws s3 sync . s3://stepanvalchyshyn.com/ --delete
-            else
-               echo "Not master branch, dry run only"
-            fi
+      - aws-s3/sync:
+          from: .
+          to: 's3://stepanvalchyshyn.com/'
+          overwrite: true
 
 workflows:
   version: 2
