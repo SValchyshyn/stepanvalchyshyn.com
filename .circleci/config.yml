@@ -16,7 +16,7 @@ jobs:
       - image: cibuilds/aws
 
     steps:
-    - attach_workspace:
+      - attach_workspace:
           at: ~/website
 
       - run:
