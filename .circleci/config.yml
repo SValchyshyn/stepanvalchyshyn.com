@@ -1,7 +1,4 @@
-version: 2.1
-
-orbs:
-  aws-s3: circleci/aws-s3@volatile
+version: 2
 
 jobs:
   build:
@@ -30,10 +27,12 @@ jobs:
       - attach_workspace:
           at: ~/home/website
 
-      - aws-s3/sync:
-          from: ~/home/website
-          to: 's3://stepanvalchyshyn.com/ --acl public-read --cache-control "public, max-age=31536000"'
-          overwrite: true
+      - run:
+          name: Install awscli
+          command: sudo pip install awscli
+      - run:
+          name: Deploy to S3
+          command: aws s3 sync home/website/ s3://stepanvalchyshyn.com/ --delete
 
 workflows:
   version: 2
