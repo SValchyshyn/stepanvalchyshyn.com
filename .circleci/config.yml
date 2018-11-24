@@ -16,6 +16,8 @@ jobs:
     docker:
       - image: cibuilds/aws
 
+      steps:
+        - run:
           name: deploy to AWS
           command: |
             if [ "${CIRCLE_BRANCH}" = "master" ]; then
