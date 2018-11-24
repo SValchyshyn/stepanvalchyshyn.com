@@ -7,6 +7,8 @@ jobs:
   build:
     docker:
       - image: debian:stretch
+
+    working_directory: ~/website
     steps:
       - checkout
       - run:
